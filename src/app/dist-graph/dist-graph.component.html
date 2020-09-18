@@ -1,0 +1,27 @@
+<!-- <p>dist app-dist-graph worked</p>
+<div>
+  <p>i worked</p>
+  {{showDistrictGraph()}}
+  {{console.log('showDistrictGraph')}}
+   <google-chart [data]="pieChartforDistrict"></google-chart>
+   <p>i worked</p>
+</div> -->
+
+<div class="container tablecss">
+  <div style="text-align: center; margin-top: 20px;margin-bottom: 20px;">
+    <h4 style="text-align: center;">{{Dist}}</h4>
+  </div>
+  <div class="row">
+        <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel">
+        </ngx-charts-bar-vertical>
+  </div>
+</div>
