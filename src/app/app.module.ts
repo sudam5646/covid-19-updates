@@ -9,14 +9,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DistGraphComponent } from './dist-graph/dist-graph.component';
-import { StateGraphComponent } from './state-graph/state-graph.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DistGraphComponent,
-    StateGraphComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
