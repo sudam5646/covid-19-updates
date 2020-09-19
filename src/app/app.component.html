@@ -1,7 +1,12 @@
+<div class="container">
 
-
+</div>
+<nav>
+  <div style="background-color: rgb(23, 219, 226);height: 50px;">
+    <h2 style="text-align: center;">India covid-19 updates</h2>
+  </div>
+</nav>
 <div  style="background-color: black;">
-  <div style="background-color: rgb(23, 219, 226);height: 50px;"><h2 style="text-align: center;">India covid-19 updates</h2></div>
   <div class="container">
     <div class="row">
       <div class="col-sm-2"></div>
@@ -14,15 +19,21 @@
   </div>
 <div class="container-fluid">
   <div class="row">
+    <div class="col-sm-2"></div>
     <div class="col-sm-8 tablecss">
-      <div>
-        <h2 style="text-align: center;">
-          <u>Statewise Covid-19 Updates</u>
-        </h2>
-      </div>
-      <p style="text-align: center;">Click on State name to see Districtwise data</p>
+
       <div>
       <table class="table table-striped tablecss">
+        <tr>
+          <td colspan="5">
+            <div>
+              <h2 style="text-align: center;">
+                <u>Statewise Covid-19 Updates</u>
+              </h2>
+            </div>
+            <p style="text-align: center;">Click on State name to see Districtwise data</p>
+          </td>
+        </tr>
         <tr class="total">
           <th (click) = "sortbyStatename()" class="state"><i class="fa fa-sort" aria-hidden="true"></i>State</th>
           <th (click) = "sortbyConfirmedcases()" class="confirmed"><i class="fa fa-sort" aria-hidden="true"></i>Confirmed</th>
@@ -31,9 +42,10 @@
           <th (click) = "sortbyDeseasedcases()" class="deseased" style="color :white"><i class="fa fa-sort" aria-hidden="true"></i>Deaths</th>
           <th></th>
         </tr>
-          <tr *ngFor="let state of Statedata">
+        <tbody *ngFor="let state of Statedata">
+          <tr>
             <td class="myDIV" (click) = "showDistrictWise(state.state)">
-              <u><a href="#C4" style="color: white;">{{state.state}}</a></u>
+              <u><a href="#C6" style="color: white;">{{state.state}}</a></u>
           </td>
             <td>{{state.confirmed}}</td>
             <td>{{state.active}}</td>
@@ -43,6 +55,99 @@
               <button (click) = "drawGraphforState(state)" class="btn btn-primary">show chart</button>
             </td>
           </tr>
+          <tr id="C6" *ngIf="state.state == statename">
+            <td colspan="5">
+              <div>
+                <div *ngFor="let state of Object.keys(finalData)">
+
+                  <!-- <p>{{state}}</p> -->
+                  <div *ngIf="state == statename">
+                    <div class="tablecss">
+                      <h2 style="text-align: center;"><u>Districtwise Covid-19 Updates of {{statename}}</u></h2>
+                      <p style="text-align: center;">Click on District name to see Graphical view</p>
+                    </div>
+                      <!-- {{JSON.stringify(finalData[state][data])}} -->
+                        <!-- <p>{{dist}}</p><br>
+                        <p>{{finalData[state][data][dist].confirmed}}</p> -->
+                        <div class="container">
+                          <div class="row">
+                              <table  class="table table-striped tablecss">
+                                <thead>
+                                  <tr>
+                                    <th>District</th>
+                                    <th>Confirmed</th>
+                                    <th style="color :rgb(248, 82, 4)">Active</th>
+                                    <th style="color:green">Recovered</th>
+                                    <th style="color :red">Deaths</th>
+                                    <!-- {{firstrow()}} -->
+                                  </tr>
+                                </thead>
+                                      <tbody *ngFor = "let data of Object.keys(finalData[state])">
+                                        <tr *ngFor="let dist of Object.keys(finalData[state][data])" >
+                                          <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" class="myDIV" (click) = 'drawGraphforDistrict(finalData[state][data][dist],dist)'>{{dist}}</td>
+                                          <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'">{{finalData[state][data][dist].confirmed}}</td>
+                                          <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color :rgb(248, 82, 4)">
+                                            {{finalData[state][data][dist].active}}
+                                            <div *ngIf="dist == distname" style="background-color: white;">
+                                              <h4 style="text-align: center;">{{distname}} corona updates</h4>
+                                              <div class="container">
+                                              <div class="row" style="background-color: white;">
+                                                <ngx-charts-bar-vertical
+                                                [view]="view"
+                                                [scheme]="colorScheme"
+                                                [results]="single"
+                                                [gradient]="gradient"
+                                                [xAxis]="showXAxis"
+                                                [yAxis]="showYAxis"
+                                                [legend]="showLegend"
+                                                [showXAxisLabel]="showXAxisLabel"
+                                                [showYAxisLabel]="showYAxisLabel">
+                                                </ngx-charts-bar-vertical>
+                                            </div>
+                                              </div>
+
+                                            </div>
+                                          </td>
+                                          <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color:green">{{finalData[state][data][dist].recovered}}</td>
+                                          <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color :red">{{finalData[state][data][dist].deceased}}</td>
+                                        </tr>
+                                      </tbody>
+                              </table>
+
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="state.state == state_name">
+            <td colspan="5">
+              <div>
+                <h4 style="text-align: center;">{{state_name}} corona updates</h4>
+                <div  style="background-color: white;">
+                  <div class="row" style="background-color: white;">
+                    <ngx-charts-bar-vertical
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="single"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel">
+                    </ngx-charts-bar-vertical>
+                </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+
           <tr class="total">
             <td>{{india.state}}</td>
             <td>{{india.confirmed}}</td>
@@ -54,69 +159,14 @@
       </table>
       </div>
     </div>
-    <div class="col-sm-4 tablecss2"><router-outlet></router-outlet></div>
+    <div class="col-sm-2"></div>
   </div>
 </div>
 
 
   <!-- <h1>*************************************************************************************</h1> -->
-<div id = "C4">
-  <div>
-    <div *ngIf="showdistrictwise" class="tablecss">
-      <h2 style="text-align: center;"><u>Districtwise Covid-19 Updates of {{statename}}</u></h2>
-      <p style="text-align: center;">Click on District name to see Graphical view</p>
-    </div>
-  <div *ngFor="let state of Object.keys(finalData)">
-    <!-- <p>{{state}}</p> -->
-    <div *ngIf = "state == statename">
-        <!-- {{JSON.stringify(finalData[state][data])}} -->
-          <!-- <p>{{dist}}</p><br>
-          <p>{{finalData[state][data][dist].confirmed}}</p> -->
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-6">
-                <table  class="table table-striped tablecss">
-                  <thead>
-                    <tr>
-                      <th>District</th>
-                      <th>Confirmed</th>
-                      <th style="color :rgb(248, 82, 4)">Active</th>
-                      <th style="color:green">Recovered</th>
-                      <th style="color :red">Deaths</th>
-                      <!-- {{firstrow()}} -->
-                    </tr>
-                  </thead>
-                        <tbody *ngFor = "let data of Object.keys(finalData[state])">
-                          <tr *ngFor="let dist of Object.keys(finalData[state][data])" >
-                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" class="myDIV" (click) = 'drawGraphforDistrict(finalData[state][data][dist],dist)'>{{dist}}</td>
-                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'">{{finalData[state][data][dist].confirmed}}</td>
-                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color :rgb(248, 82, 4)">{{finalData[state][data][dist].active}}</td>
-                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color:green">{{finalData[state][data][dist].recovered}}</td>
-                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State'" style="color :red">{{finalData[state][data][dist].deceased}}</td>
-                          </tr>
-                        </tbody>
-                </table>
-              </div>
-              <div class="col-sm-6">
-                <!-- <ng-container *ngIf="showgraph">
-                  <span>
-                    <google-chart [data]="pieChartforDistrict"></google-chart>
-                  </span>
-                </ng-container> -->
-
-                <router-outlet></router-outlet>
 
 
-              </div>
-            </div>
-
-          </div>
-
-
-        </div>
-  </div>
-  </div>
-</div>
 </div>
 
 

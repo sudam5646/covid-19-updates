@@ -69,10 +69,14 @@ export class AppComponent {
   statename = "";
   showdistrictwise = false;
   showDistrictWise(state){
+    this.state_name = "";
     this.showdistrictwise = true;
     this.statename = state;
     this.firstrowadded = false;
     console.log('state',this.statename);
+  }
+  districtwiseshown(){
+    this.showdistrictwise = false;
   }
   firstrowadded = false;
   firstrow(){
@@ -105,22 +109,97 @@ drawGraph(india){
 
 showgraph = false;
 public pieChartforDistrict: GoogleChartInterface;
-drawGraphforDistrict(distObject,dist){
-  localStorage.setItem('distObject', JSON.stringify(distObject)); // Set distObject in local storage as string
-  let Dist = dist + ' Corona updates';
-  localStorage.setItem('district', JSON.stringify(Dist));
-  this.Router.navigate(['/dist-graph']);
-}
 
+//*************state graph************ */
+  distObject : any;
+  Confirmed;
+  Active;
+  Recovered;
+  Deaths;
+  Dist;
+  showDistrictGraph(){}
+  stateObject;
+  state;
+view: any[] = [500, 600];
+showXAxis = true;
+showYAxis = true;
+gradient = false;
+showLegend = true;
+showXAxisLabel = true;
+//xAxisLabel = 'Country';
+showYAxisLabel = true;
+yAxisLabel = 'No of cases';
+timeline = true;
+colorScheme = {
+  domain: ['blue', 'orange', 'green', 'red']
+};
+
+showLabels = true;
+public single = [];
+state_name = "";
 drawGraphforState(state){
+  this.statename = "";
+  this.state_name = state.state;
   this.showdistrictwise = false;
   console.log('app',state);
-  localStorage.setItem('stateObject', JSON.stringify(state)); // Set distObject in local storage as string
   // let Dist = dist + ' Corona updates';
   // localStorage.setItem('district', JSON.stringify(Dist));
-  this.Router.navigate(['/state-graph']);
-}
+  this.stateObject = state;
+    this.state = this.stateObject.state;
+    console.log('this.State',this.state);
+    this.single = [
+      {
+        "name": "Confirmed",
+        "value": this.stateObject.confirmed,
+      },
+      {
+        "name": "Active",
+        "value": this.stateObject.active,
+      },
+      {
+        "name": "Recovered",
+        "value": this.stateObject.recovered,
+      },
+      {
+        "name": "Deaths",
+        "value": this.stateObject.deaths,
+      }
+    ];
 
+}
+//************************************* */
+//***********************dist-graph******* */
+distname = "";
+drawGraphforDistrict(distObject,dist){
+    this.distname = dist;
+    this.distObject = distObject;
+    // console.log('distObject 1',distObject);
+    this.Confirmed = Number(this.distObject.confirmed);
+    this.Active = Number(this.distObject.active);
+    this.Recovered = Number(this.distObject.recovered);
+    this.Deaths = Number(this.distObject.deceased);
+    this.Dist = JSON.parse(localStorage.getItem('district'));
+    console.log('this.Dist',this.Dist)
+    this.single = [
+      {
+        "name": "Confirmed",
+        "value": this.distObject.confirmed,
+      },
+      {
+        "name": "Active",
+        "value": this.distObject.active,
+      },
+      {
+        "name": "Recovered",
+        "value": this.distObject.recovered,
+      },
+      {
+        "name": "Deaths",
+        "value": this.distObject.deceased,
+      }
+    ];
+}
+//*************************************** */
 
 setshowgraph(){
   this.showgraph = false;
@@ -178,47 +257,7 @@ sortbyRecoveredcases(){
 
 //************************************************************************* */
 //NgxChartsModule
-view: any[] = [600, 600];
-showXAxis = true;
-showYAxis = true;
-gradient = false;
-showLegend = true;
-showXAxisLabel = true;
-xAxisLabel = 'Country';
-showYAxisLabel = true;
-yAxisLabel = 'Sales';
-timeline = true;
-colorScheme = {
-  domain: ['RED', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
-};
 
-showLabels = true;
-public single = [
-  {
-    "name": "China",
-    "value": 2243772
-  },
-  {
-    "name": "USA",
-    "value": 1126000
-  },
-  {
-    "name": "Norway",
-    "value": 296215
-  },
-  {
-    "name": "Japan",
-    "value": 257363
-  },
-  {
-    "name": "Germany",
-    "value": 196750
-  },
-  {
-    "name": "France",
-    "value": 204617
-  }
-];
 
 //************************************************************************* */
 
