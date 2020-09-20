@@ -20,8 +20,7 @@
         </div>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-8 tablecss">
+          <div class=" tablecss">
 
             <div>
             <table class="table table-striped tablecss">
@@ -57,7 +56,7 @@
                   </td>
                 </tr>
                 <tr id="C6" *ngIf="state.state == statename">
-                  <td colspan="5">
+                  <td colspan="6">
                     <div>
                       <div *ngFor="let state of Object.keys(finalData)">
 
@@ -65,7 +64,6 @@
                         <div *ngIf="state == statename">
                           <div class="tablecss">
                             <h2 style="text-align: center;"><u>Districtwise Covid-19 Updates of {{statename}}</u></h2>
-                            <p style="text-align: center;">Click on District name to see Graphical view</p>
                           </div>
                             <!-- {{JSON.stringify(finalData[state][data])}} -->
                               <!-- <p>{{dist}}</p><br>
@@ -73,13 +71,14 @@
                               <div class="container">
                                 <div class="row">
                                     <table  class="table table-striped tablecss">
-                                      <thead>
+                                      <thead  class="total">
                                         <tr>
                                           <th>District</th>
                                           <th>Confirmed</th>
                                           <th style="color :rgb(248, 82, 4)">Active</th>
                                           <th style="color:green">Recovered</th>
                                           <th style="color :red">Deaths</th>
+                                          <th></th>
                                           <!-- {{firstrow()}} -->
                                         </tr>
                                       </thead>
@@ -111,6 +110,9 @@
                                                 </td>
                                                 <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname" style="color:green">{{finalData[state][data][dist].recovered}}</td>
                                                 <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname" style="color :red">{{finalData[state][data][dist].deceased}}</td>
+                                                <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname">
+                                                  <button (click) = "drawGraphforDistrict(finalData[state][data][dist],dist)" class="btn btn-primary">show chart</button>
+                                                </td>
                                               </tr>
                                             </tbody>
                                     </table>
@@ -160,7 +162,6 @@
             </table>
             </div>
           </div>
-          <div class="col-sm-2"></div>
         </div>
       </div>
 
@@ -229,7 +230,7 @@
               </td>
             </tr>
             <tr id="C6" *ngIf="state.state == statename">
-              <td colspan="5">
+              <td colspan="6">
                 <div>
                   <div *ngFor="let state of Object.keys(finalData)">
 
@@ -237,7 +238,6 @@
                     <div *ngIf="state == statename">
                       <div class="tablecss">
                         <h2 style="text-align: center;"><u>Districtwise Covid-19 Updates of {{statename}}</u></h2>
-                        <p style="text-align: center;">Click on District name to see Graphical view</p>
                       </div>
                         <!-- {{JSON.stringify(finalData[state][data])}} -->
                           <!-- <p>{{dist}}</p><br>
@@ -245,13 +245,14 @@
                           <div class="container">
                             <div class="row">
                                 <table  class="table table-striped tablecss">
-                                  <thead>
+                                  <thead  class="total">
                                     <tr>
                                       <th>District</th>
                                       <th>Confirmed</th>
                                       <th style="color :rgb(248, 82, 4)">Active</th>
                                       <th style="color:green">Recovered</th>
                                       <th style="color :red">Deaths</th>
+                                      <th></th>
                                       <!-- {{firstrow()}} -->
                                     </tr>
                                   </thead>
@@ -283,6 +284,9 @@
                                             </td>
                                             <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname" style="color:green">{{finalData[state][data][dist].recovered}}</td>
                                             <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname" style="color :red">{{finalData[state][data][dist].deceased}}</td>
+                                            <td *ngIf="dist != '0' && dist != '1' && dist != 'Unknown' && dist != 'Other State' && dist != distname">
+                                              <button (click) = "drawGraphforDistrict(finalData[state][data][dist],dist)" class="btn btn-primary">show chart</button>
+                                            </td>
                                           </tr>
                                         </tbody>
                                 </table>
