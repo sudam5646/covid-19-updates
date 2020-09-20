@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CovidService } from './services/covid.service';
 import { GoogleChartInterface } from 'ng2-google-charts';
 import { Router } from '@angular/router';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+
 // import * as CanvasJS from './canvasjs.min';
 
 @Component({
@@ -12,7 +14,10 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(
     private CovidService : CovidService,
-    private Router : Router){}
+    private Router : Router,
+    public breakpointObserver: BreakpointObserver){
+    }
+
   title = 'covid-app';
   StateDistrictdata;
   Statedata
@@ -23,7 +28,10 @@ export class AppComponent {
   Object = Object;
   JSON = JSON;
   console = console;
+  isSmallScreen;
   ngOnInit(){
+    this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 599px)');
+    console.log('this.isSmallScreen',this.isSmallScreen);
     this.CovidService.getStateDistrictWise()
     .subscribe((resCovidData: any) => {
 
